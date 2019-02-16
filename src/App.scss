@@ -1,18 +1,3 @@
 @import url(https://fonts.googleapis.com/css?family=Press+Start+2P);
 @import '../node_modules/nes.css/scss/nes';
 @import './styles/index';
-
-.game-image {
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  display: block;
-  padding-top: 100%;
-  max-width: 100%;
-  width: 100vw;
-
-  &.preparing {
-    background-image: url(assets/global/loading.gif);
-    background-size: auto;
-  }
-}

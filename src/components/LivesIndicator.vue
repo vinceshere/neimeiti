@@ -1,16 +1,27 @@
 <template>
   <div class="score">
    <span>
-     Vidas:
-     <i v-if="$store.state.gameState.lifesRemaining >= 1" class="nes-icon heart is-medium"></i>
-     <i v-if="$store.state.gameState.lifesRemaining >= 2" class="nes-icon heart is-medium"></i>
-     <i v-if="$store.state.gameState.lifesRemaining >= 3" class="nes-icon heart is-medium"></i>
+     <span>Vidas:</span>
+     <i v-for="(life, index) in $store.state.gameState.lifesRemaining" v-bind:key="index" class="nes-icon heart"></i>
    </span>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'lives-indicator'
+  name: 'lives-indicator',
+  computed: {
+    lifesRemaining() {
+      return this.$store.state.gameState.lifesRemaining
+    }
+  },
+  watch: {
+    lifesRemaining (newCount, oldCount) {
+      if (!newCount.length) {
+        this.$store.commit('gameEnded')
+        this.$router.push('game-over')
+      }
+    }
+  },
 }
 </script>

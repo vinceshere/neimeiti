@@ -1,0 +1,22 @@
+.game-image {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: block;
+  padding-top: 100%;
+  position: relative;
+  max-width: 100%;
+  width: 100vw;
+
+  &.preparing {
+    background-image: url(assets/global/loading.gif);
+    background-size: auto;
+
+    .warning {
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+}

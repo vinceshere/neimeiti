@@ -1,10 +1,13 @@
+import GAME_SETTINGS from '../helpers/gameSettings'
+
 const gameState = {
   isLoading: false,
   gameStarted: false,
+  gamePrepared: false,
   gameEnded: false,
-  lifesRemaining: 3,
+  lifesRemaining: GAME_SETTINGS.lifes,
   currentLevel: 0,
-  timeRemaining: 10
+  timeRemaining: GAME_SETTINGS.timeToAnswer
 }
 
 export default gameState

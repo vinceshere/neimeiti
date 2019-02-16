@@ -68,9 +68,6 @@ export default {
       recognition.onend = (event) => {
         this.isTalking = false
       }
-    },
-    startGame () {
-
     }
   }
 }
