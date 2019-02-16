@@ -1,0 +1,46 @@
+body {
+  @media screen and (max-width: 767px) {
+    font-size: 13px;
+  }
+}
+
+footer {
+  p {
+    margin-bottom: 1rem;
+  }
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-around;
+  padding: 2rem;
+  width: 100vw;
+
+  @media screen and (max-width: 767px) {
+    padding: 1rem;
+  }
+}
+
+.img-responsive {
+  display: block;
+  height: auto;
+  margin-bottom: 14px;
+  max-width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.nes-container {
+  position: relative;
+
+  &.is-rounded {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: 600px;
+  }
+}

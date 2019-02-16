@@ -1,49 +1,56 @@
 <template>
-  <main>
-    <header class="text-center">
-      <h1>NeimeIt</h1>
-      <p>Adivinhe os nomes.</p>
-    </header>
+  <section class="nes-container is-rounded text-center">
+    <p>Adivinhe os nomes dos artistas.<br>Este jogo usa reconhecimento de voz, portanto permita o acesso ao microfone.</p>
 
-    <section class="nes-container is-rounded text-center">
-      <img class="img-responsive" src="@/assets/home/vincent.jpg" alt="">
+    <img class="img-responsive" src="@/assets/home/vincent.jpg" alt="">
 
-      <div v-if="playerName" class="message -left user-baloon">
-        <div class="nes-balloon from-left">
-          <p>Olá, {{playerName}}!</p>
-        </div>
+    <div v-if="$store.state.gameInfo.playerName" class="message -left user-baloon">
+      <div class="nes-balloon from-left">
+        <p>Olá, {{$store.state.gameInfo.playerName}}!</p>
       </div>
+    </div>
 
-      <button type="button" v-if="playerName" @click="startGame" class="nes-btn is-success">Iniciar</button>
-      <button type="button" v-else @click="askForMicPermission" v-bind:class="{ 'is-talking': isTalking }" class="nes-btn is-danger">Clique aqui e diga seu nome para iniciar</button>
-    </section>
-
-    <footer class="footer">
-      <p>
-        <a href="https://nostalgic-css.github.io/NES.css/" target="_blank">Design by NES.css</a>
-        <span>-</span>
-        <a href="https://www.v1nce.com.br" target="_blank">Development by Vince</a>
-      </p>
-    </footer>
-  </main>
+    <button-get-name></button-get-name>
+    <button-start-game></button-start-game>
+  </section>
 </template>
 
 <script>
+import GetNameButton from '@/components/GetNameButton'
+import StartGameButton from '@/components/StartGameButton'
+
+import store from '@/store'
+
 export default {
   name: 'home',
   data () {
     return {
-      hasMicPermission: false,
-      isTalking: false,
-      playerName: null
+      isTalking: false
     }
+  },
+  components: {
+    'button-get-name': GetNameButton,
+    'button-start-game': StartGameButton
+  },
+  beforeRouteEnter: (to, from, next) => {
+    if (store.state.gameEnded) {
+      return next({ name: 'game-over' })
+    }
+
+    if (store.state.gameStarted) {
+      return next({ name: 'game' })
+    }
+
+    next()
+  },
+  mounted () {
+    this.$store.commit('endedLoading')
   },
   methods: {
     setMicPermission (value) {
-      console.log(this)
       this.hasMicPermission = value
     },
-    askForMicPermission () {
+    getPlayerName () {
       var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)()
       recognition.lang = 'pt-BR'
       recognition.interimResults = false
