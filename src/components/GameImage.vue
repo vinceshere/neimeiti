@@ -79,7 +79,7 @@ export default {
         const response = event.results[0][0].transcript.toLowerCase()
         const artistName = this.$store.state.artists[this.currentLevel].name.toLowerCase()
 
-        const answer = response === artistName
+        const answer = artistName.indexOf(response) > -1
 
         if (answer) {
           this.$store.commit('wonLevel')
