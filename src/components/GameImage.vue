@@ -17,7 +17,8 @@ export default {
     return {
       artists: [],
       assetsLoaded: 0,
-      totalAssets: 0
+      totalAssets: 0,
+      recognition: null
     }
   },
   mounted () {
@@ -26,6 +27,9 @@ export default {
 
     this.artists = shuffleArray(this.artists)
     this.preloadAsset()
+  },
+  beforeDestroy () {
+    this.recognition.stop()
   },
   computed: {
     gamePrepared () {
@@ -67,15 +71,15 @@ export default {
       return `/img/artists/${this.artists[this.currentLevel].slug}.jpg`
     },
     getUserResponse () {
-      var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)()
-      recognition.lang = 'pt-BR'
-      recognition.interimResults = false
-      recognition.maxAlternatives = 1
-      recognition.continuous = true
+      this.recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)()
+      this.recognition.lang = 'pt-BR'
+      this.recognition.interimResults = false
+      this.recognition.maxAlternatives = 1
+      this.recognition.continuous = true
 
-      recognition.start()
+      this.recognition.start()
 
-      recognition.onresult = (event) => {
+      this.recognition.onresult = (event) => {
         const response = event.results[0][0].transcript.toLowerCase()
         const artistName = this.$store.state.artists[this.currentLevel].name.toLowerCase()
 

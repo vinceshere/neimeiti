@@ -1,5 +1,5 @@
 const gameInfo = {
-  playerName: 'Vicente',
+  playerName: '',
   score: 0
 }
 
