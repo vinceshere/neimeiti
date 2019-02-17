@@ -6,6 +6,15 @@ import './registerServiceWorker'
 
 Vue.config.productionTip = false
 
+router.beforeEach((to, from, next) => {
+  store.state.gameState.isLoading = true
+  next()
+})
+
+router.afterEach((to, from) => {
+  store.state.gameState.isLoading = false
+})
+
 new Vue({
   router,
   store,

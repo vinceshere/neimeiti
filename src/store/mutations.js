@@ -1,5 +1,9 @@
 import GAME_SETTINGS from '../helpers/gameSettings'
 
+const assetLoaded = (state) => {
+  state.gameState.assetsLoaded++
+}
+
 const isLoading = (state) => {
   state.gameState.isLoading = true
 }
@@ -62,7 +66,6 @@ const resetGame = (state) => {
   state.gameState.timeRemaining = GAME_SETTINGS.timeToAnswer
   state.gameState.isLoading = false
   state.gameState.gameStarted = false
-  state.gameState.gamePrepared = false
   state.gameState.gameEnded = false
   state.gameState.lifesRemaining = GAME_SETTINGS.lifes
   state.gameState.currentLevel = 0
@@ -70,6 +73,7 @@ const resetGame = (state) => {
 }
 
 export default {
+  assetLoaded,
   isLoading,
   endedLoading,
   addPoints,

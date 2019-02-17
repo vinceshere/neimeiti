@@ -1,8 +1,8 @@
 <template>
   <section class="nes-container is-rounded text-center">
     <div class="flex-container">
-      <score></score>
       <timer></timer>
+      <score></score>
     </div>
     <game-image></game-image>
     <lives-indicator></lives-indicator>
@@ -40,9 +40,6 @@ export default {
     }
 
     next()
-  },
-  methods: {
-
   }
 }
 </script>

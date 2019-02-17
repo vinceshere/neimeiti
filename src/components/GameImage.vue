@@ -4,7 +4,7 @@
     v-bind:class="{ preparing: !gamePrepared }"
     v-bind:style="{ backgroundImage: gamePrepared ? `url(${currentArtistImage()})`: `` }"
   >
-    <span class="warning" v-if="!gamePrepared">Preparando nivel...</span>
+    <span class="warning" v-if="!gamePrepared">Preparando jogo...</span>
   </div>
 </template>
 
@@ -16,7 +16,6 @@ export default {
   data () {
     return {
       artists: [],
-      assetsLoaded: 0,
       totalAssets: 0,
       recognition: null
     }
@@ -26,10 +25,15 @@ export default {
     this.totalAssets = this.artists.length
 
     this.artists = shuffleArray(this.artists)
-    this.preloadAsset()
+
+    if (this.assetsLoaded < this.totalAssets) {
+      this.preloadAsset()
+    }
   },
   beforeDestroy () {
-    this.recognition.stop()
+    if (this.recognition) {
+      this.recognition.stop()
+    }
   },
   computed: {
     gamePrepared () {
@@ -37,19 +41,24 @@ export default {
     },
     currentLevel () {
       return this.$store.state.gameState.currentLevel
+    },
+    assetsLoaded () {
+      return this.$store.state.gameState.assetsLoaded
     }
   },
   watch: {
     currentLevel (newCount, oldCount) {
-      if (newCount >= this.$store.state.artists.length) {
+      if (newCount > this.$store.state.artists.length) {
         this.$store.commit('gameEnded')
-        return
       }
 
-      this.$store.commit('settingGame')
+      if (this.gamePrepared) {
+        this.getUserResponse()
+      }
     },
-    gamePrepared (newCount, oldCount) {
-      if (newCount) {
+    assetsLoaded (newCount) {
+      if (newCount >= this.totalAssets) {
+        this.$store.commit('gamePrepared')
         this.getUserResponse()
       }
     }
@@ -60,7 +69,7 @@ export default {
         const image = new Image()
         image.src = `/img/artists/${artist.slug}.jpg`
         image.onload = () => {
-          this.assetsLoaded = this.assetsLoaded + 1
+          this.$store.commit('assetLoaded')
 
           if (this.assetsLoaded >= this.totalAssets) {
             this.$store.commit('gamePrepared')

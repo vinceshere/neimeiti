@@ -30,7 +30,7 @@ export default {
   methods: {
     playAgain () {
       this.$store.commit('resetGame')
-      this.$router.push({ name: 'home' })
+      this.$router.go({ path: '/' })
     }
   }
 }

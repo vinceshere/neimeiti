@@ -24,12 +24,6 @@ export default {
     'app-header': Header,
     'app-footer': Footer,
     'app-loading': Loading
-  },
-  created () {
-    this.$router.beforeEach = (to, from, next) => {
-      this.$store.commit('isLoading')
-      next()
-    }
   }
 }
 </script>

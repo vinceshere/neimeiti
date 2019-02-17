@@ -1,6 +1,7 @@
 import GAME_SETTINGS from '../helpers/gameSettings'
 
 const gameState = {
+  assetsLoaded: 0,
   isLoading: false,
   gameStarted: false,
   gamePrepared: false,

@@ -17,7 +17,9 @@ export default {
     }
   },
   beforeDestroy () {
-    this.recognition.stop()
+    if (this.recognition) {
+      this.recognition.stop()
+    }
   },
   methods: {
     getPlayerName () {

@@ -1,8 +1,8 @@
 <template>
-  <div class="score">
+  <div class="lifes">
    <span>
      <span>Vidas:</span>
-     <i v-for="(life, index) in $store.state.gameState.lifesRemaining" v-bind:key="index" class="nes-icon heart"></i>
+     <i v-for="(life, index) in $store.state.gameState.lifesRemaining" v-bind:key="index" class="nes-icon heart is-small"></i>
    </span>
   </div>
 </template>
@@ -19,7 +19,7 @@ export default {
     lifesRemaining (newCount, oldCount) {
       if (!newCount.length) {
         this.$store.commit('gameEnded')
-        this.$router.push('game-over')
+        this.$router.push({ name: 'game-over' })
       }
     }
   }

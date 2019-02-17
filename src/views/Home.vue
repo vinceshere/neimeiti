@@ -2,7 +2,7 @@
   <section class="nes-container is-rounded text-center">
     <p>Adivinhe os nomes dos artistas.<br>Este jogo usa reconhecimento de voz, portanto permita o acesso ao microfone.</p>
 
-    <img class="img-responsive" src="@/assets/home/vincent.jpg" alt="">
+    <img class="img-responsive" src="/img/home/vincent.jpg" alt="">
 
     <div v-if="$store.state.gameInfo.playerName" class="message -left user-baloon">
       <div class="nes-balloon from-left">

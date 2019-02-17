@@ -1,6 +1,6 @@
 <template>
   <div class="timer">
-   <span>{{ currentTime }}</span>
+   <span>Tempo:{{ currentTime }}</span>
   </div>
 </template>
 
@@ -11,9 +11,6 @@ export default {
     return {
       timer: null
     }
-  },
-  mounted () {
-    this.startTimer()
   },
   beforeDestroy () {
     clearInterval(this.timer)
@@ -28,8 +25,8 @@ export default {
     }
   },
   watch: {
-    gamePrepared () {
-      if (!this.timer && this.gamePrepared) {
+    gamePrepared (newValue) {
+      if (!this.timer && newValue) {
         setTimeout(() => {
           this.startTimer()
         }, 500)
