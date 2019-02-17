@@ -91,6 +91,7 @@ export default {
           this.$store.commit('lostLevel')
         }
 
+        this.recognition.stop()
         this.playSound(answer)
       }
     },
