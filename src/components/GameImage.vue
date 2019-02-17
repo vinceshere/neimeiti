@@ -47,7 +47,6 @@ export default {
       }
 
       this.$store.commit('settingGame')
-      this.preloadAsset()
     },
     gamePrepared (newCount, oldCount) {
       if (newCount) {
@@ -57,12 +56,17 @@ export default {
   },
   methods: {
     preloadAsset () {
-      const image = new Image()
-      image.src = `/img/artists/${this.artists[this.currentLevel].slug}.jpg`
-      image.onload = () => {
-        this.assetsLoaded = this.assetsLoaded + 1
-        this.$store.commit('gamePrepared')
-      }
+      this.artists.forEach((artist) => {
+        const image = new Image()
+        image.src = `/img/artists/${artist.slug}.jpg`
+        image.onload = () => {
+          this.assetsLoaded = this.assetsLoaded + 1
+
+          if (this.assetsLoaded >= this.totalAssets) {
+            this.$store.commit('gamePrepared')
+          }
+        }
+      })
     },
     currentArtistImage () {
       if (!this.artists.length) {
