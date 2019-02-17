@@ -23,9 +23,9 @@ export default {
     next()
   },
   mounted () {
-    let sound = '/audio/game-over.wav';
-    var audio = new Audio(sound);
-    audio.play();
+    let sound = '/audio/game-over.wav'
+    var audio = new Audio(sound)
+    audio.play()
   },
   methods: {
     playAgain () {

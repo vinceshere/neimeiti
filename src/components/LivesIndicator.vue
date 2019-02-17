@@ -11,7 +11,7 @@
 export default {
   name: 'lives-indicator',
   computed: {
-    lifesRemaining() {
+    lifesRemaining () {
       return this.$store.state.gameState.lifesRemaining
     }
   },
@@ -22,6 +22,6 @@ export default {
         this.$router.push('game-over')
       }
     }
-  },
+  }
 }
 </script>

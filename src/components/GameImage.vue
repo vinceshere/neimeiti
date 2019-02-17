@@ -28,7 +28,7 @@ export default {
     this.preloadAsset()
   },
   computed: {
-    gamePrepared() {
+    gamePrepared () {
       return this.$store.state.gameState.gamePrepared
     },
     currentLevel () {
@@ -71,7 +71,7 @@ export default {
       recognition.lang = 'pt-BR'
       recognition.interimResults = false
       recognition.maxAlternatives = 1
-      recognition.continuous = true;
+      recognition.continuous = true
 
       recognition.start()
 
@@ -87,18 +87,18 @@ export default {
           this.$store.commit('lostLevel')
         }
 
-        this.playSound(answer);
+        this.playSound(answer)
       }
     },
     playSound (answer) {
-      let sound = '/audio/wrong.wav';
+      let sound = '/audio/wrong.wav'
 
       if (answer) {
-        sound = '/audio/correct.wav';
+        sound = '/audio/correct.wav'
       }
 
-      var audio = new Audio(sound);
-      audio.play();
+      var audio = new Audio(sound)
+      audio.play()
     }
   }
 }

@@ -16,8 +16,8 @@ export default {
     this.startTimer()
   },
   beforeDestroy () {
-    clearInterval(this.timer);
-    this.timer = null;
+    clearInterval(this.timer)
+    this.timer = null
   },
   computed: {
     currentTime () {
@@ -28,7 +28,7 @@ export default {
     }
   },
   watch: {
-    gamePrepared() {
+    gamePrepared () {
       if (!this.timer && this.gamePrepared) {
         setTimeout(() => {
           this.startTimer()
@@ -37,8 +37,8 @@ export default {
     },
     currentTime (newCount, oldCount) {
       if (newCount === 0) {
-        clearInterval(this.timer);
-        this.timer = null;
+        clearInterval(this.timer)
+        this.timer = null
         this.$store.commit('lostLevel')
       }
     }
