@@ -12,26 +12,30 @@ export default {
   name: 'home',
   data () {
     return {
+      recognition: null,
       isTalking: false
     }
   },
+  beforeDestroy () {
+    this.recognition.stop()
+  },
   methods: {
     getPlayerName () {
-      var recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)()
-      recognition.lang = 'pt-BR'
-      recognition.interimResults = false
-      recognition.maxAlternatives = 1
+      this.recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)()
+      this.recognition.lang = 'pt-BR'
+      this.recognition.interimResults = false
+      this.recognition.maxAlternatives = 1
 
       this.isTalking = true
-      recognition.start()
+      this.recognition.start()
 
-      recognition.onresult = (event) => {
+      this.recognition.onresult = (event) => {
         this.$store.commit('definePlayerName', event.results[0][0].transcript)
         this.isTalking = false
-        recognition.stop()
+        this.recognition.stop()
       }
 
-      recognition.onend = (event) => {
+      this.recognition.onend = (event) => {
         this.isTalking = false
       }
     }
