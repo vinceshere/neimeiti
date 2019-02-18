@@ -22,9 +22,8 @@ export default {
   },
   mounted () {
     this.artists = this.$store.state.artists
+    this.artists = shuffleArray(this.artists).slice(0, 15)
     this.totalAssets = this.artists.length
-
-    this.artists = shuffleArray(this.artists)
 
     if (this.assetsLoaded < this.totalAssets) {
       this.preloadAsset()
@@ -48,8 +47,9 @@ export default {
   },
   watch: {
     currentLevel (newCount, oldCount) {
-      if (newCount > this.$store.state.artists.length) {
+      if (Number(newCount) > 14) {
         this.$store.commit('gameEnded')
+        this.$router.push({ name: 'game-over' })
       }
 
       if (this.gamePrepared) {
@@ -78,8 +78,9 @@ export default {
       })
     },
     currentArtistImage () {
-      if (!this.artists.length) {
-        return false
+      if (!this.artists.length || !this.artists[this.currentLevel]) {
+        this.$store.commit('gameEnded')
+        this.$router.push({ name: 'game-over' })
       }
       return `/img/artists/${this.artists[this.currentLevel].slug}.jpg`
     },
